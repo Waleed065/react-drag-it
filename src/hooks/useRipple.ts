@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { v4 } from "uuid";
+import { rippleType } from "../types";
 import isMobile from "../utils/isMobile";
 
 interface schema {
@@ -30,7 +31,7 @@ export default function useRipple({ parentRef, setRipples }: schema) {
   const applyCursorRippleEffect = (e: any) => {
     e.preventDefault();
     
-    setRipples((prevState: any) =>
+    setRipples((prevState: rippleType[]) =>
       prevState.concat({
         left: e.clientX,
         top: e.clientY,
