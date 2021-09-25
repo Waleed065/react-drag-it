@@ -1,4 +1,4 @@
-import React, { memo, useRef } from "react";
+import React, { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import { rippleType } from "../types";
 import "./css/Ripple.css";
@@ -19,7 +19,7 @@ function Ripple({ properties: { show, top, left, id }, setRipples }: schema) {
   };
 
   const unmount = () => {
-    setRipples((prevState: any) =>
+    setRipples((prevState: rippleType[]) =>
       prevState.filter((pointer: rippleType) => pointer.id !== id)
     );
   };
@@ -41,7 +41,7 @@ function Ripple({ properties: { show, top, left, id }, setRipples }: schema) {
   );
 }
 
-function shouldMemo(prevState: any, nextState: any) {
-  return prevState.properties.show === nextState.properties.show ? true : false;
-}
-export default memo(Ripple, shouldMemo);
+// function shouldMemo(prevState: any, nextState: any) {
+//   return prevState.properties.id === nextState.properties.id && prevState.properties.show === nextState.properties.show;
+// }
+export default Ripple;

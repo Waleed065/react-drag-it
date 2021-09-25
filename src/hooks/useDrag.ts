@@ -17,6 +17,8 @@ export default function useDrag({ dragRef, parentRef, setLT }: schema) {
     if (!parentRef.current || !dragRef.current) return;
     const parentRefObj = parentRef.current;
     const dragRefObj = dragRef.current;
+    parentRefObj.style.position = "relative";
+    
     let pointerDown: string;
     let pointerUp: string;
     let pointerMove: string;
