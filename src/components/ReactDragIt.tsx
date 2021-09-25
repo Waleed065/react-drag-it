@@ -1,5 +1,5 @@
 import React from "react";
-import Drag from "../components/Drag";
+import Drag from "./Drag";
 import PointerEvents from "./PointerEvents";
 
 interface schema {

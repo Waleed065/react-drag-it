@@ -13,15 +13,10 @@ export default function PointerEvents({ parentRef }: schema) {
 
   useRipple({ parentRef, setRipples });
 
-//   console.log(ripples)
   return (
     <TransitionGroup>
       {ripples.map((properties, index) => (
-        <Ripple
-          key={index}
-          properties={properties}
-          setRipples={setRipples}
-        />
+        <Ripple key={index} properties={properties} setRipples={setRipples} />
       ))}
     </TransitionGroup>
   );
