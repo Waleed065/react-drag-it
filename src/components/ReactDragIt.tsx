@@ -5,13 +5,18 @@ import Ripple from "../components/Ripple";
 interface schema {
   parentRef: React.RefObject<any>;
   children?: JSX.Element;
+  showRipple?: boolean;
 }
-export default function ReactDrag({ parentRef, children }: schema) {
+export default function ReactDrag({
+  parentRef,
+  showRipple = true,
+  children,
+}: schema) {
   return (
     <>
       {children && <Drag parentRef={parentRef}>{children}</Drag>}
 
-      <Ripple parentRef={parentRef} />
+      {showRipple && <Ripple parentRef={parentRef} />}
     </>
   );
 }

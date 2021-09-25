@@ -40,18 +40,18 @@ export default function useDrag({ dragRef, parentRef, setLT }: schema) {
   const Move = (e: any) => {
     if (!isActive) return;
 
-    let pointerX: number;
-    let pointerY: number;
+    // let pointerX: number;
+    // let pointerY: number;
 
     // if (e.pageX) {
-      pointerX = e.pageX;
-      pointerY = e.pageY;
+      // pointerX = e.pageX;
+      // pointerY = e.pageY;
     // } else if (e.clientX) {
     //   pointerX = e.clientX;
     //   pointerY = e.clientY;
     // } else return;
 
-    setLT({ left: pointerX - itemXGap, top: pointerY - itemYGap });
+    setLT({ left: e.pageX - itemXGap, top: e.pageY - itemYGap });
   };
 
   const Drop = () => {
