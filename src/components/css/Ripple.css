@@ -1,13 +1,11 @@
-#ripple {
-    width: 10px;
-    height: 10px;
-    background-color: transparent;
-    position: fixed;
-    border-radius: 50%;
-    border: 1px solid #ffff59;
-
-  }
-
+.ripple {
+  width: 10px;
+  height: 10px;
+  background-color: transparent;
+  position: fixed;
+  border-radius: 50%;
+  border: 1px solid #ffff59;
+}
 
 /* --------------transition---------------- */
 

@@ -1,6 +1,6 @@
 import React from "react";
 import Drag from "../components/Drag";
-import Ripple from "../components/Ripple";
+import PointerEvents from "./PointerEvents";
 
 interface schema {
   parentRef: React.RefObject<any>;
@@ -16,7 +16,7 @@ export default function ReactDrag({
     <>
       {children && <Drag parentRef={parentRef}>{children}</Drag>}
 
-      {showRipple && <Ripple parentRef={parentRef} />}
+      {showRipple && <PointerEvents parentRef={parentRef} />}
     </>
   );
 }

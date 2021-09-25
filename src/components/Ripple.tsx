@@ -1,24 +1,40 @@
-import React, { useRef, useState } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
-import useRipple from "../hooks/useRipple";
+import { rippleType } from "../types";
 import "./css/Ripple.css";
 
 interface schema {
-  parentRef: React.RefObject<any>;
+  properties: rippleType;
+  setRipples: (arg: any) => void;
 }
-export default function Ripple({ parentRef }: schema) {
+function Ripple({ properties: { show, top, left, id }, setRipples }: schema) {
   const rippleRef = useRef<HTMLDivElement>(null);
+  // console.log({show, top, left, id })
 
-  const [{ left, top, show }, setRipple] = useState({
-    left: 0,
-    top: 0,
-    show: false,
-  });
+  const timer = useRef<any>(null);
+  useEffect(() => {
+    if (show) return;
+    timer.current = setTimeout(() => {
+      setRipples((prevState: any) =>
+        prevState.filter((pointer: rippleType) => pointer.id !== id)
+      );
+    }, 300);
+    return () => {
+      setRipples((prevState: any) =>
+        prevState.filter((pointer: rippleType) => pointer.id !== id)
+      );
 
-  useRipple({ parentRef, setRipple });
+      clearTimeout(timer.current);
+    };
+    // eslint-disable-next-line
+  }, [show]);
 
   const closeRipple = () => {
-    setRipple((prevState: any) => ({ ...prevState, show: false }));
+    setRipples((prevState: rippleType[]) =>
+      prevState.map((pointer: rippleType) =>
+        pointer.id === id ? { ...pointer, show: false } : pointer
+      )
+    );
   };
 
   return (
@@ -30,7 +46,12 @@ export default function Ripple({ parentRef }: schema) {
       unmountOnExit
       onEntered={closeRipple}
     >
-      <div id="ripple" ref={rippleRef} style={{ top, left }} />
+      <div className="ripple" ref={rippleRef} style={{ top, left }} />
     </CSSTransition>
   );
 }
+
+function shouldMemo(prevState: any, nextState: any) {
+  return prevState.properties.show === nextState.properties.show ? true : false;
+}
+export default memo(Ripple, shouldMemo);

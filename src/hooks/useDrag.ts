@@ -52,8 +52,6 @@ export default function useDrag({ dragRef, parentRef, setLT }: schema) {
 
     itemXGap = (e.pageX ?? e.changedTouches[0].pageX) - offsetLeft;
     itemYGap = (e.pageY ?? e.changedTouches[0].pageY) - offsetTop;
-
-    // alert(pageX)
   };
 
   const Move = (e: any) => {
