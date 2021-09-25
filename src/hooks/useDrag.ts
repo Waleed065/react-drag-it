@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
-import isMobile from "../utils/isMobile";
+import checkIsMobile from "../utils/isMobile";
+
+const isMobile = checkIsMobile();
 
 interface schema {
   dragRef: React.RefObject<HTMLDivElement>;
@@ -19,7 +21,7 @@ export default function useDrag({ dragRef, parentRef, setLT }: schema) {
     let pointerUp: string;
     let pointerMove: string;
 
-    if (!isMobile()) {
+    if (!isMobile) {
       pointerDown = "mousedown";
       pointerMove = "mousemove";
       pointerUp = "mouseup";
@@ -48,8 +50,10 @@ export default function useDrag({ dragRef, parentRef, setLT }: schema) {
     isActive = true;
     const { offsetLeft = 0, offsetTop = 0 } = dragRef.current ?? {};
 
-    itemXGap = e.pageX - offsetLeft;
-    itemYGap = e.pageY - offsetTop;
+    itemXGap = (e.pageX ?? e.changedTouches[0].pageX) - offsetLeft;
+    itemYGap = (e.pageY ?? e.changedTouches[0].pageY) - offsetTop;
+
+    // alert(pageX)
   };
 
   const Move = (e: any) => {
@@ -67,14 +71,15 @@ export default function useDrag({ dragRef, parentRef, setLT }: schema) {
     //   pointerX = e.clientX;
     //   pointerY = e.clientY;
     // } else return;
+    const left = (e.pageX ?? e.changedTouches[0].pageX) - itemXGap;
+    const top = (e.pageY ?? e.changedTouches[0].pageY) - itemYGap;
 
-    setLT({ left: e.pageX - itemXGap, top: e.pageY - itemYGap });
+    setLT({ left, top });
   };
 
   const Drop = (e: any) => {
     e.preventDefault();
 
     isActive = false;
-
   };
 }
