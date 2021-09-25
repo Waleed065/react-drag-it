@@ -7,7 +7,7 @@ export default function App() {
 
   return (
     <div id={"camera-container"} ref={parentRef}>
-      <ReactDragIt parentRef={parentRef}  >
+      <ReactDragIt parentRef={parentRef}>
         <div style={{width: 100, height: 100, backgroundColor: 'red'}}>Drag Me</div>
       </ReactDragIt>
     </div>
