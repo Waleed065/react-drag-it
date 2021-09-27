@@ -18,7 +18,9 @@ export default function useDrag({ dragRef, parentRef, setLT }: schema) {
     const parentRefObj = parentRef.current;
     const dragRefObj = dragRef.current;
     parentRefObj.style.position = "relative";
-    
+    parentRefObj.style.overflow = "hidden";
+
+
     let pointerDown: string;
     let pointerUp: string;
     let pointerMove: string;
@@ -52,8 +54,8 @@ export default function useDrag({ dragRef, parentRef, setLT }: schema) {
     isActive = true;
     const { offsetLeft = 0, offsetTop = 0 } = dragRef.current ?? {};
 
-    itemXGap = (e.pageX ?? e.changedTouches[0].pageX) - offsetLeft;
-    itemYGap = (e.pageY ?? e.changedTouches[0].pageY) - offsetTop;
+    itemXGap = (e.clientX ?? e.changedTouches[0].clientX) - offsetLeft;
+    itemYGap = (e.clientY ?? e.changedTouches[0].clientY) - offsetTop;
   };
 
   const Move = (e: any) => {
@@ -71,8 +73,8 @@ export default function useDrag({ dragRef, parentRef, setLT }: schema) {
     //   pointerX = e.clientX;
     //   pointerY = e.clientY;
     // } else return;
-    const left = (e.pageX ?? e.changedTouches[0].pageX) - itemXGap;
-    const top = (e.pageY ?? e.changedTouches[0].pageY) - itemYGap;
+    const left = (e.clientX ?? e.changedTouches[0].clientX) - itemXGap;
+    const top = (e.clientY ?? e.changedTouches[0].clientY) - itemYGap;
 
     setLT({ left, top });
   };
